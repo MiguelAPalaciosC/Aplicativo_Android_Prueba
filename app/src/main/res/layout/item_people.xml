@@ -82,6 +82,7 @@
         android:layout_marginTop="15dp"
         android:textColorHighlight="#ED84FF"
         android:textColorLink="#D32DEF"
+        android:backgroundTint="@color/purple_200"
         app:layout_constraintStart_toEndOf="@+id/tvAge"
         app:layout_constraintTop_toBottomOf="@+id/tvPeopleName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

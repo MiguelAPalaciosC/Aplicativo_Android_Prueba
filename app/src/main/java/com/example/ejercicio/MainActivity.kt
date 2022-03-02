@@ -8,14 +8,19 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ejercicio.adapter.PeopleAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //PeopleProvider.peopleList
         setContentView(R.layout.activity_main)
         initRecyclerView()
+        fab.setOnClickListener{
+            Toast.makeText(this,"Holalaaaaaa",Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initRecyclerView() {
