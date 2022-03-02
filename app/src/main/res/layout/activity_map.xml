@@ -1,66 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
     tools:context=".ActivityMap">
 
-    <fragment
-        android:id="@+id/fMap"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="32dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="500dp"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:src="?attr/actionModeCloseDrawable"
-        app:backgroundTint="#9C27B0" />
-
-    <TextView
-        android:id="@+id/tvContPeople"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fMap"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
-        android:hint="Numero de personas activas en el mapa: "
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fMap" />
-
-    <TextView
-        android:id="@+id/tvNumberPeople"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fMap"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="23dp"
-        android:layout_toEndOf="@+id/tvContPeople"
-        android:textSize="15dp"
-        app:layout_constraintStart_toEndOf="@+id/tvContPeople"
-        app:layout_constraintTop_toBottomOf="@+id/fMap"
-        tools:text="20 años" />
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
