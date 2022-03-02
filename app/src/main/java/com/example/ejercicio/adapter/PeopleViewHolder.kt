@@ -1,10 +1,13 @@
 package com.example.ejercicio.adapter
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ejercicio.People
@@ -37,6 +40,7 @@ class PeopleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             number.text = "Sin numero"
         }else{
             number.text = peopleModel.number
+            dialPhoneNumber(peopleModel.number)
         }
         circlePhoto()
         if (peopleModel.photo.equals("")){//Validar foto de perfil
@@ -77,6 +81,15 @@ class PeopleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             shadowColor = Color.MAGENTA
             shadowGravity = CircularImageView.ShadowGravity.CENTER
         }
+    }
+
+    fun dialPhoneNumber(phoneNumber: String) {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phoneNumber")
+        }
+        /*if (intent.resolveActivity(PeopleViewHolder) != null) {
+            startActivity(intent)
+        }*/
     }
 }
 
