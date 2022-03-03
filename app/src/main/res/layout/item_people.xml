@@ -3,17 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/ivPeople"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
         app:civ_border_color="#3f51b5"
         app:civ_border_width="4dp"
         app:civ_shadow="true"
-        app:civ_shadow_radius="10dp"
         app:civ_shadow_color="#3f51b5"
+        app:civ_shadow_radius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:background="@color/purple_200" />
@@ -22,66 +24,80 @@
         android:id="@+id/tvPeopleName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="17dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
         android:textColor="@color/black"
-        android:textSize="30dp"
+        android:textSize="20dp"
         app:layout_constraintStart_toEndOf="@+id/ivPeople"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Hola" />
-
-    <TextView
-        android:id="@+id/tvAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:textSize="15dp"
-        app:layout_constraintStart_toEndOf="@+id/ivPeople"
-        app:layout_constraintTop_toBottomOf="@+id/tvPeopleName"
-        tools:text="20 años" />
 
     <TextView
         android:id="@+id/tvContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
+        android:layout_marginStart="16dp"
         android:hint="Contacto: "
         android:textColor="@color/black"
-        android:textSize="15dp"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivPeople"
-        app:layout_constraintTop_toBottomOf="@+id/tvAge" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAge"
+        app:layout_constraintVertical_bias="0.515" />
 
     <TextView
-        android:id="@+id/tvNumber"
+        android:id="@+id/tvAge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:textSize="15dp"
-        app:layout_constraintStart_toEndOf="@+id/tvContact"
-        app:layout_constraintTop_toBottomOf="@+id/tvAge"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        android:textSize="10dp"
+        app:layout_constraintStart_toEndOf="@+id/ivPeople"
+        app:layout_constraintTop_toBottomOf="@+id/tvPeopleName"
         tools:text="20 años" />
 
     <TextView
         android:id="@+id/tvState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="60dp"
         android:hint="Inactivo "
         android:textColor="@color/black"
-        android:textSize="15dp"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/stState"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tvAge"
-        app:layout_constraintTop_toBottomOf="@+id/tvPeopleName" />
+        app:layout_constraintStart_toEndOf="@+id/tvNumber"
+        app:layout_constraintTop_toBottomOf="@+id/tvAge"
+        app:layout_constraintVertical_bias="0.517" />
+
+    <TextView
+        android:id="@+id/tvNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="12dp"
+        android:textSize="10dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvState"
+        app:layout_constraintStart_toEndOf="@+id/tvContact"
+        app:layout_constraintTop_toBottomOf="@+id/tvAge"
+        app:layout_constraintVertical_bias="0.238"
+        tools:text="+57 3203091190" />
 
     <Switch
         android:id="@+id/stState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="15dp"
-        android:textColorHighlight="#ED84FF"
-        android:textColorLink="#D32DEF"
-        app:layout_constraintStart_toEndOf="@+id/tvAge"
-        app:layout_constraintTop_toBottomOf="@+id/tvPeopleName" />
+        android:layout_width="50dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="8dp"
+        android:thumbTintMode="multiply"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvState"
+        app:layout_constraintTop_toBottomOf="@+id/tvAge"
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

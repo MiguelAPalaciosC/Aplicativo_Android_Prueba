@@ -4,7 +4,11 @@ class PeopleProvider {
     companion object {
         val peopleList = listOf<People>(
             People(
-                "", "Miguel Andres", 23, "", true
+                "",
+                "Miguel Andres",
+                23,
+                "",
+                true
             ),
             People(
                 "https://img.uefa.com/imgml/TP/players/3/2020/324x324/95417.jpg",

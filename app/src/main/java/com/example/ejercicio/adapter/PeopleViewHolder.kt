@@ -58,23 +58,23 @@ class PeopleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             // Set Color
             circleColor = Color.WHITE
             // or with gradient
-            circleColorStart = Color.BLACK
-            circleColorEnd = Color.MAGENTA
+            circleColorStart = Color.WHITE
+            circleColorEnd = Color.WHITE
             circleColorDirection = CircularImageView.GradientDirection.TOP_TO_BOTTOM
 
             // Set Border
-            borderWidth = 7f
-            borderColor = Color.BLACK
+            borderWidth = 1f
+            borderColor = Color.WHITE
             // or with gradient
-            borderColorStart = Color.BLACK
-            borderColorEnd = Color.MAGENTA
+            borderColorStart = Color.WHITE
+            borderColorEnd = Color.WHITE
             borderColorDirection = CircularImageView.GradientDirection.TOP_TO_BOTTOM
 
             // Add Shadow with default param
             shadowEnable = true
             // or with custom param
-            shadowRadius = 5f
-            shadowColor = Color.MAGENTA
+            shadowRadius = 1f
+            shadowColor = Color.WHITE
             shadowGravity = CircularImageView.ShadowGravity.CENTER
         }
     }
