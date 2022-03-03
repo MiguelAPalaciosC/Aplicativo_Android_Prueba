@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Ejercicio</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDHKkSDy3p8EQp37ym3FKt7aSrz9aFQV5Q</string>
 </resources>

@@ -11,4 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <com.tuann.floatingactionbuttonexpandable.FloatingActionButtonExpandable
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        app:fab_bg_color="#8E45E8"
+        app:fab_content="Mostrar mapa"
+        app:fab_duration="2"
+        app:fab_icon="@drawable/ic_map" />
+
 </FrameLayout>
