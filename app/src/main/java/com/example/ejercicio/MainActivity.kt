@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                     val nombre: String? = document.getString("nombre")
                     val fechaNacimiento: Timestamp? =
                         document.getTimestamp("fecha_nacimiento")
-                    println("----------NOmbre---------" + fechaNacimiento)
+                    println("----------NOmbre---------" +nombre + "---años--- " + fechaNacimiento?.toDate())
                     val contacto: String? = document.getString("contacto")
                     val foto: String? = document.getString("foto")
                     val estado: Boolean? = document.getBoolean("estado")
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                             People(
                                 foto.toString(),
                                 nombre,
-                                fechaNacimiento,
+                                fechaNacimiento.toString(),
                                 contacto.toString(),
                                 estado,
                                 ubicacion
