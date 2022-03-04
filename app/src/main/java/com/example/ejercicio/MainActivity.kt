@@ -13,6 +13,7 @@ import com.example.ejercicio.adapter.PeopleAdapter
 import com.example.ejercicio.databinding.ActivityMainBinding
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -20,7 +21,9 @@ private const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
+    private var firebaseAnalytics = Firebase.analytics
+    private var db = firebaseAnalytics
+
     //lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         //setContentView(binding.root)
         setUpFab()
         // Obtain the FirebaseAnalytics instance.
-        firebaseAnalytics = Firebase.analytics
     }
 
     private fun setUpFab() {
@@ -62,4 +64,9 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = PeopleAdapter(PeopleProvider.peopleList)
         recyclerView.addItemDecoration(decoration)
     }
+
+    private fun getPeopleFromFirebase() {
+
+    }
 }
+
