@@ -1,13 +1,14 @@
 package com.example.ejercicio
 
+import com.google.firebase.Timestamp
+
 data class People(
     var photo: String,
     var name: String,
-    var age: Int,
+    var age: String,
     var number: String = DEFAULT_NUMBER,
     var state: Boolean,
-    var longitud:Double,
-    var latitud: Double
+    var location:String
 ) {
     companion object {
         private const val DEFAULT_NUMBER = "Sin numero"

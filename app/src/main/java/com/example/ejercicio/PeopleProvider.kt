@@ -1,8 +1,13 @@
 package com.example.ejercicio
 
+import com.google.firebase.database.DatabaseReference
+
 class PeopleProvider {
+    private lateinit var database: DatabaseReference
+// ...
+
     companion object {
-        val peopleList = listOf<People>(
+        /*val peopleList = listOf<People>(
             People(
                 "",
                 "Miguel Andres",
@@ -73,6 +78,6 @@ class PeopleProvider {
                 "+57 3206211234",
                 false
             )
-        )
+        )*/
     }
 }
