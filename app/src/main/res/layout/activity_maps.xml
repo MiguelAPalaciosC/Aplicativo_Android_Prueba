@@ -6,4 +6,26 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapsActivity" />
+    tools:context=".MapsActivity" >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/purple_200"
+        android:foregroundTint="@color/purple_200"
+        android:src="?attr/homeAsUpIndicator"
+        android:tint="@color/purple_200"
+        map:backgroundTint="@color/purple_200"
+        map:rippleColor="@color/purple_200"
+        map:borderWidth="0dp"
+        map:elevation="0dp"/>
+</fragment>
