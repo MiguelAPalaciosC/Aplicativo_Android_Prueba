@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                     val nombre: String? = document.getString("nombre")
                     val fechaNacimiento: Timestamp? =
                         document.getTimestamp("fecha_nacimiento")
-                    println("----------NOmbre---------" +nombre + "---años--- " + fechaNacimiento?.toDate())
+                    println("----------NOmbre---------" +nombre + "---años--- " + (fechaNacimiento?.toDate()?.toLocaleString()))
                     val contacto: String? = document.getString("contacto")
                     val foto: String? = document.getString("foto")
                     val estado: Boolean? = document.getBoolean("estado")
@@ -77,9 +77,7 @@ class MainActivity : AppCompatActivity() {
         //val fab = binding.fab
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerTest)
         fab.setOnClickListener {
-            val intent = Intent(this, MapsActivity::class.java).apply {
-                putExtra(EXTRA_MESSAGE, "Error")
-            }
+            val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
         }
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
