@@ -62,11 +62,13 @@ open class MainActivity : AppCompatActivity() {
                     val foto: String? = document.getString("foto")
                     val estado: Boolean? = document.getBoolean("estado")
                     val ubicacion: GeoPoint? = document.getGeoPoint("ubicacion")
-                    println("-----------" + ubicacion?.latitude.toString())
+                    //println("-----------" + ubicacion?.latitude.toString())
+                    /*************+Leer datos tipo Map***********/
                     val location = document.data.getValue("location") as HashMap<String, Any>
 
                     val lat=location.get("lat")
                     Log.d("-----------", "$lat")
+                    /********************************************/
                     if (nombre != null && fechaNacimiento != null && estado != null && ubicacion != null) {
                         lista.add(
                             People(
