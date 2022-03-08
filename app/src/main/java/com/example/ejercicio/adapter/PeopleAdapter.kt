@@ -16,7 +16,7 @@ class PeopleAdapter(private val peopleList: List<People>, val context:Context) :
 
     override fun onBindViewHolder(holder: PeopleViewHolder, position: Int) {
         val item=peopleList[position]
-        holder.render(item)
+        holder.render(item,context)
         //holder.people.text =peopleList[position].name
         //holder.age.text =peopleList[position].age.toString()
         //holder.number.text =peopleList[position].number

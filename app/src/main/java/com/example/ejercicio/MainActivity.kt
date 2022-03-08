@@ -1,34 +1,30 @@
 package com.example.ejercicio
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.widget.GridLayout
-import android.widget.Toast
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ejercicio.adapter.PeopleAdapter
 import com.google.firebase.Timestamp
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.QueryDocumentSnapshot
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
-import java.time.format.DateTimeFormatter
-import java.util.*
+import kotlinx.android.synthetic.main.item_people.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 private const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
 
-class MainActivity : AppCompatActivity() {
+open class MainActivity : AppCompatActivity() {
 
     //private var firebaseAnalytics = Firebase.analytics
     //private var db = firebaseAnalytics
@@ -58,14 +54,19 @@ class MainActivity : AppCompatActivity() {
                     val fechaNacimiento: Timestamp? =
                         document.getTimestamp("fecha_nacimiento")
                     if (fechaNacimiento != null) {
+                        //println(">>>>>>>fechaNacimiento>>>>>>>>>>" + ((fechaNacimiento.toDate().toString())))
                         ageDate = calculateAge(fechaNacimiento)
                     }
-                    println("----------NOmbre---------" + nombre + "---años--- " + (ageDate))
+
                     val contacto: String? = document.getString("contacto")
                     val foto: String? = document.getString("foto")
                     val estado: Boolean? = document.getBoolean("estado")
-                    val ubicacion: String? = document.getGeoPoint("ubicacion").toString()
+                    val ubicacion: GeoPoint? = document.getGeoPoint("ubicacion")
+                    println("-----------" + ubicacion?.latitude.toString())
+                    val location = document.data.getValue("location") as HashMap<String, Any>
 
+                    val lat=location.get("lat")
+                    Log.d("-----------", "$lat")
                     if (nombre != null && fechaNacimiento != null && estado != null && ubicacion != null) {
                         lista.add(
                             People(
@@ -85,19 +86,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun calculateAge(dateTt: Timestamp): Int {
+    private fun calculateAge(dateAge: Timestamp): Int {
 
         var datetime: Long = System.currentTimeMillis()
         var date: Long = TimeUnit.MILLISECONDS.toSeconds(datetime)
-        var tt: Timestamp = Timestamp(date, 0)
-        println(">>>>>>>>>>>>>>>>>" + ((tt.toDate().month) + 1))
-        if (dateTt?.toDate()?.month >= tt.toDate().month && dateTt?.toDate()?.day >= tt.toDate().day) {
-            var age = tt.toDate().year - dateTt?.toDate()?.year
-            println(""+tt.toDate().year + "-" + dateTt?.toDate()?.year)
-            return age
-        } else if (dateTt?.toDate()?.month > tt.toDate().month){
-            var age = tt.toDate().year - dateTt?.toDate()?.year - 1
-            println(""+tt.toDate().year + "-" + dateTt?.toDate()?.year)
+        var dateToday = Timestamp(date, 0)
+        //println(">>>>>>>>>>>>>>>>>" + ((dateAge.toDate().toString())))
+        //println("---------------------------"+dateToday.toDate().year + "-" + dateAge?.toDate()?.year+"-------------")
+        if (dateAge?.toDate()?.year < dateToday.toDate().year && dateAge?.toDate()?.month <= dateToday.toDate().month) {
+            if (dateAge?.toDate()?.month < dateToday.toDate().month){
+                var age = dateToday.toDate().year - dateAge?.toDate()?.year
+                //println(""+dateToday.toDate().year + "-" + dateAge?.toDate()?.year)
+                return age
+            }else if (dateAge?.toDate()?.month == dateToday.toDate().month && dateAge?.toDate()?.day <= dateToday.toDate().day){
+                var age = dateToday.toDate().year - dateAge?.toDate()?.year
+                //println(""+dateToday.toDate().year + "-" + dateAge?.toDate()?.year)
+                return age
+            }else{
+                var age = dateToday.toDate().year - dateAge?.toDate()?.year - 1
+                //println(""+dateToday.toDate().year + "-" + dateAge?.toDate()?.year)
+                return age
+            }
+
+        } else if (dateAge?.toDate()?.year < dateToday.toDate().year){
+            var age = dateToday.toDate().year - dateAge?.toDate()?.year - 1
+            //println(""+dateToday.toDate().year + "-" + dateAge?.toDate()?.year)
             return age
         }else{
             return 0;
@@ -132,8 +145,5 @@ class MainActivity : AppCompatActivity() {
         recyclerView.addItemDecoration(decoration)
     }
 
-    private fun getPeopleFromFirebase() {
-
-    }
 }
 

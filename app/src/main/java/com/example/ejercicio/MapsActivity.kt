@@ -11,13 +11,18 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.ejercicio.databinding.ActivityMapsBinding
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import kotlinx.android.synthetic.main.activity_maps.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    private val listaUbication: ArrayList<Place> = ArrayList()
+    private var cont:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,13 +30,52 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-        fabMap.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+        val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+        db.collection("persona").get().addOnCompleteListener {
+            if (it.isSuccessful) {
+                listaUbication.clear()
+                for (document: QueryDocumentSnapshot in it.result) {
+                    val nombre: String? = document.getString("nombre")
+                    val ubicacion: GeoPoint? = document.getGeoPoint("ubicacion")
+                    //val location:MutableMap<String,String>=HashMap()
+                    println("-----------" + ubicacion?.latitude.toString())
+                    if ( ubicacion != null) {
+                        cont++
+                        listaUbication.add(
+                            Place(
+                                nombre.toString(),
+                                LatLng(ubicacion.latitude,ubicacion.longitude)
+                            )
+                        )
+                    }
+                }
+                // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+                val mapFragment = supportFragmentManager
+                    .findFragmentById(R.id.map) as SupportMapFragment
+                mapFragment.getMapAsync { googleMap ->
+                    addMarkers(googleMap)
+                }
+                fabMap.setOnClickListener {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
+        println("Contador -------->>>>>>>>>"+cont)
+        tvNumeroPuntos.text= "Numero de puntos generados: " +listaUbication.size
+
+    }
+
+    private fun addMarkers(googleMap: GoogleMap) {
+        mMap = googleMap
+        println("-----addMarkers------")
+        listaUbication.forEach { place ->
+            val marker = googleMap.addMarker(
+                MarkerOptions()
+                    .title(place.name)
+                    .position(place.latLng)
+            )
+            //mMap.moveCamera(CameraUpdateFactory.newLatLng(marker))
         }
     }
 
@@ -48,8 +92,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        //val sydney = LatLng(-34.0, 151.0)
+        //mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        /*for (locations in listaUbication){
+            val lctn = LatLng(locations.location.latitude, locations.location.longitude)
+            mMap.addMarker(MarkerOptions().position(lctn).title("Ubicacion de: "+locations.name))
+            println("--------------->>>>>>>>>><<"+locations.name)
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(lctn))
+        }*/
     }
+
 }

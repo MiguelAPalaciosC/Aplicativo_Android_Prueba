@@ -1,12 +1,13 @@
 package com.example.ejercicio.adapter
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.view.View
-import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,53 +23,57 @@ class PeopleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val age = view.findViewById<TextView>(R.id.tvAge)
     val number = view.findViewById<TextView>(R.id.tvNumber)
     val state = view.findViewById<TextView>(R.id.tvState)
-    val switch=view.findViewById<Switch>(R.id.stState)
+    val switch = view.findViewById<Switch>(R.id.stState)
 
-    fun render(peopleModel: People) {
+    fun render(peopleModel: People,context: Context) {
         people.text = peopleModel.name
         age.text = peopleModel.age.toString() + " años"
 
-        switch.setOnCheckedChangeListener { _, isChecked ->
+        //switch.=peopleModel.state
+
+        switch.setOnCheckedChangeListener { _ , isChecked ->
             if (isChecked) {
-                peopleModel.state=isChecked
+                peopleModel.state = isChecked
                 statePeople(peopleModel)
             } else {
-                peopleModel.state=isChecked
+                peopleModel.state = isChecked
                 statePeople(peopleModel)
             }
         }
-        if (peopleModel.number.equals("")){//Validar el numero de celular
+        if (peopleModel.number.equals("")) {//Validar el numero de celular
             number.text = "Sin numero"
-        }else{
+        } else {
             number.text = peopleModel.number
-            dialPhoneNumber(peopleModel.number)
+            number.setOnClickListener {
+                println("number.setOnClickListener")
+                val intent = Intent(Intent.ACTION_DIAL).apply {
+                    data = Uri.parse("tel:${number.text}")
+                }
+                context.startActivity(intent)
+            }
+
 
         }
         circlePhoto()
-        if (peopleModel.photo.equals("")){//Validar foto de perfil
-            Glide.with(photo.context).load("https://www.ver.bo/wp-content/uploads/2019/01/4b463f287cd814216b7e7b2e52e82687.png_1805022883.png").into(photo)
-        }else{
+        if (peopleModel.photo.equals("")) {//Validar foto de perfil
+            Glide.with(photo.context)
+                .load("https://www.ver.bo/wp-content/uploads/2019/01/4b463f287cd814216b7e7b2e52e82687.png_1805022883.png")
+                .into(photo)
+        } else {
             Glide.with(photo.context).load(peopleModel.photo).into(photo)
         }
     }
 
-    fun dialPhoneNumber(phoneNumber: String) {
-        val intent = Intent(Intent.ACTION_DIAL).apply {
-            data = Uri.parse("tel:$phoneNumber")
 
-        }
-
-    }
-
-    fun statePeople(peopleModel: People){
-        if(peopleModel.state){//validar estado
-            state.text= "Activo"
-        }else{
-            state.text= "Inactivo"
+    fun statePeople(peopleModel: People) {
+        if (peopleModel.state) {//validar estado
+            state.text = "Activo"
+        } else {
+            state.text = "Inactivo"
         }
     }
 
-    fun circlePhoto(){
+    fun circlePhoto() {
         photo.apply {
             // Set Color
             circleColor = Color.WHITE
@@ -93,5 +98,25 @@ class PeopleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             shadowGravity = CircularImageView.ShadowGravity.CENTER
         }
     }
+}
+
+fun PeopleViewHolder.dialPhoneNumber(phoneNumber: TextView): TextView {
+
+    /*phoneNumber.setOnClickListener {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phoneNumber")
+        }
+
+    }
+    number.setOnClickListener {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:${number.text}")
+        }
+        if (intent.resolveActivity(this) != null) {
+            startActivity(intent)
+        }
+
+    }*/
+    return phoneNumber
 }
 

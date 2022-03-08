@@ -87,7 +87,7 @@
         app:layout_constraintStart_toEndOf="@+id/tvContact"
         app:layout_constraintTop_toBottomOf="@+id/tvAge"
         app:layout_constraintVertical_bias="0.238"
-        tools:text="+57 3203091190" />
+        tools:text="+57 3203091190"/>
 
     <Switch
         android:id="@+id/stState"
