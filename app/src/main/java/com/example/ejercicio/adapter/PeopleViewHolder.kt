@@ -29,9 +29,8 @@ class PeopleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         people.text = peopleModel.name
         age.text = peopleModel.age.toString() + " años"
 
-        //switch.=peopleModel.state
-
         switch.setOnCheckedChangeListener { _ , isChecked ->
+            peopleModel.state = isChecked
             if (isChecked) {
                 peopleModel.state = isChecked
                 statePeople(peopleModel)
@@ -51,8 +50,6 @@ class PeopleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 }
                 context.startActivity(intent)
             }
-
-
         }
         circlePhoto()
         if (peopleModel.photo.equals("")) {//Validar foto de perfil

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/purple_500"
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,15 @@
         app:fab_bg_color="#8E45E8"
         app:fab_content="Mostrar mapa"
         app:fab_duration="2"
-        app:fab_icon="@drawable/ic_map" />
+        app:fab_icon="@drawable/ic_map">
+
+    </com.tuann.floatingactionbuttonexpandable.FloatingActionButtonExpandable>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
 </FrameLayout>

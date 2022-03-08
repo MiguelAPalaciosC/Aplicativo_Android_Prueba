@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -33,6 +34,7 @@ open class MainActivity : AppCompatActivity() {
     private val lista: ArrayList<People> = ArrayList()
     private val adapterPeople = PeopleAdapter(lista, this)
     private var ageDate: Int = 0
+    private lateinit var pgsBar:ProgressBar
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +45,7 @@ open class MainActivity : AppCompatActivity() {
         //binding = ActivityMainBinding.inflate(layoutInflater)
         //setContentView(binding.root)
 
+        pgsBar=findViewById(R.id.progressBar)
         setUpFab()
         // Obtain the FirebaseAnalytics instance.
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -83,8 +86,12 @@ open class MainActivity : AppCompatActivity() {
                     }
                 }
                 adapterPeople.notifyDataSetChanged()
+                pgsBar.visibility=View.GONE
+
             }
+            //pgsBar.visibility=View.GONE
         }
+        //pgsBar.visibility=View.GONE
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
