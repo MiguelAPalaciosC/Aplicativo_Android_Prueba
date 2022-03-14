@@ -20,15 +20,17 @@ import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_people.*
+import kotlinx.android.synthetic.main.item_people.view.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
+import com.example.ejercicio.adapter.PeopleViewHolder
 
 private const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
 
 open class MainActivity : AppCompatActivity() {
 
     //private var firebaseAnalytics = Firebase.analytics
-    //private var db = firebaseAnalytics
+    private lateinit var db: FirebaseFirestore
 
     //lateinit var binding: ActivityMainBinding
     private val lista: ArrayList<People> = ArrayList()
@@ -48,11 +50,12 @@ open class MainActivity : AppCompatActivity() {
         pgsBar=findViewById(R.id.progressBar)
         setUpFab()
         // Obtain the FirebaseAnalytics instance.
-        val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+        db = FirebaseFirestore.getInstance()
         db.collection("persona").get().addOnCompleteListener {
             if (it.isSuccessful) {
                 lista.clear()
                 for (document: QueryDocumentSnapshot in it.result) {
+                    val id: String? = document.id
                     val nombre: String? = document.getString("nombre")
                     val fechaNacimiento: Timestamp? =
                         document.getTimestamp("fecha_nacimiento")
@@ -72,9 +75,10 @@ open class MainActivity : AppCompatActivity() {
                     val lat=location.get("lat")
                     Log.d("-----------", "$lat")
                     /********************************************/
-                    if (nombre != null && fechaNacimiento != null && estado != null && ubicacion != null) {
+                    if (id != null && nombre != null && fechaNacimiento != null && estado != null && ubicacion != null) {
                         lista.add(
                             People(
+                                id.toString(),
                                 foto.toString(),
                                 nombre,
                                 ageDate.toString(),
@@ -153,6 +157,5 @@ open class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapterPeople
         recyclerView.addItemDecoration(decoration)
     }
-
 }
 

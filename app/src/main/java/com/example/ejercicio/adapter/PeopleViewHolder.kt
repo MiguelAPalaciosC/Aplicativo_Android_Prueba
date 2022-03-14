@@ -1,9 +1,11 @@
 package com.example.ejercicio.adapter
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import android.widget.Switch
 import android.widget.TextView
@@ -14,9 +16,13 @@ import com.bumptech.glide.Glide
 import com.example.ejercicio.MainActivity
 import com.example.ejercicio.People
 import com.example.ejercicio.R
+import com.google.firebase.firestore.FirebaseFirestore
 import com.mikhaellopez.circularimageview.CircularImageView
 
 class PeopleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private lateinit var db: FirebaseFirestore
+
+    var idVH: String = ""
 
     var photo = view.findViewById<CircularImageView>(R.id.ivPeople)
     val people = view.findViewById<TextView>(R.id.tvPeopleName)
@@ -25,12 +31,15 @@ class PeopleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val state = view.findViewById<TextView>(R.id.tvState)
     val switch = view.findViewById<Switch>(R.id.stState)
 
-    fun render(peopleModel: People,context: Context) {
+    fun render(peopleModel: People, context: Context) {
+        idVH = peopleModel.id
+
         people.text = peopleModel.name
         age.text = peopleModel.age.toString() + " años"
 
-        switch.setOnCheckedChangeListener { _ , isChecked ->
-            peopleModel.state = isChecked
+        switch.isChecked=peopleModel.state
+        switch.setOnCheckedChangeListener { _, isChecked ->
+            //switch.setOnKeyListener()=peopleModel.state
             if (isChecked) {
                 peopleModel.state = isChecked
                 statePeople(peopleModel)
@@ -61,13 +70,19 @@ class PeopleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-
     fun statePeople(peopleModel: People) {
         if (peopleModel.state) {//validar estado
             state.text = "Activo"
         } else {
             state.text = "Inactivo"
         }
+        db = FirebaseFirestore.getInstance()
+        val poepleDB = db.collection("persona").document(idVH)
+        poepleDB
+            .update("estado", peopleModel.state)
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+
     }
 
     fun circlePhoto() {
@@ -95,25 +110,5 @@ class PeopleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             shadowGravity = CircularImageView.ShadowGravity.CENTER
         }
     }
-}
-
-fun PeopleViewHolder.dialPhoneNumber(phoneNumber: TextView): TextView {
-
-    /*phoneNumber.setOnClickListener {
-        val intent = Intent(Intent.ACTION_DIAL).apply {
-            data = Uri.parse("tel:$phoneNumber")
-        }
-
-    }
-    number.setOnClickListener {
-        val intent = Intent(Intent.ACTION_DIAL).apply {
-            data = Uri.parse("tel:${number.text}")
-        }
-        if (intent.resolveActivity(this) != null) {
-            startActivity(intent)
-        }
-
-    }*/
-    return phoneNumber
 }
 

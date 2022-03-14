@@ -4,6 +4,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 
 data class People(
+    var id: String,
     var photo: String,
     var name: String,
     var age: String,
